@@ -30,5 +30,45 @@ namespace EredmenyekCLI
                 return eredmenyek;
             }
         }
+        public static Eredmeny Save(Eredmeny eredmenyek)
+        {
+            List<Eredmeny> eredmeny = FindAll();
+            if (eredmenyek.Id == 0)
+            {
+                int maxId = 0;
+                for (int i = 0; i < eredmeny.Count; i++)
+                {
+                    if (eredmeny[i] > maxId)
+                    {
+                        maxId = eredmeny[i];
+                    }
+                }
+                eredmenyek.Id = maxId + 1;
+                eredmeny.Add(eredmenyek);
+            }
+            else
+            {
+                for (int i = 0; i < eredmeny.Count; i++)
+                {
+                    if (eredmeny[i].Id == eredmenyek.Id)
+                    {
+                        eredmeny[i] = eredmenyek;
+                        break;
+                    }
+                }
+            }
+            return eredmenyek;
+        }
+
+        public static Eredmeny FindById(int id)
+        {
+            foreach (Eredmeny eredmenyek in FindAll())
+            {
+                if (eredmenyek.Id == id)
+                {
+                    return eredmenyek;
+                }
+            }
+        }
     }
 }
